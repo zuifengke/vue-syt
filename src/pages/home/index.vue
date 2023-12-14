@@ -13,9 +13,15 @@
         <Region />
         <!-- 展示医院 -->
         <div class="hospital">
-          <Card class="item" v-for="item in 10" :key="item" />
+          <!-- :hospitalInfo="item" 传参给子类 -->
+          <Card
+            class="item"
+            v-for="(item, index) in hasHospitalArr"
+            :key="index"
+            :hospitalInfo="item"
+          />
         </div>
-        <!-- 分页器 -->
+        <!-- 分页器  插件方法： @size-change  当page-size 改变时触发-->
         <div class="page">
           <el-pagination
             v-model:current-page="pageNum"
@@ -24,7 +30,9 @@
             :small="false"
             :background="true"
             layout="prev, pager, next, jumper, sizes,total"
-            :total="13"
+            :total="total"
+            @size-change="sizeChange"
+            @current-change="currentChange"
           />
         </div>
       </el-col>
@@ -39,10 +47,48 @@ import Search from "./search/index.vue";
 import Level from "./level/index.vue";
 import Region from "./region/index.vue";
 import Card from "./card/index.vue";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { reqHospital } from "@/api/home/index";
 
+// 分页器页码
 let pageNum = ref<number>(1);
+// 一页展示几条数据
 let pageSize = ref<number>(10);
+// 存储已有的医院的数据
+let hasHospitalArr = ref([]);
+// 存储医院总个数
+let total = ref<number>(0);
+
+// 组件挂载完毕 发送一次请求
+onMounted(() => {
+  pageHospitalInfo();
+});
+
+// 分页器下拉菜单发生变化的时候会触发
+const sizeChange = () => {
+  //当前页码归第一页
+  pageNum.value = 1;
+  // 再次发请求获取医院的数据
+  pageHospitalInfo();
+};
+// 分页器页码发生变化时候回调
+const currentChange = () => {
+  pageHospitalInfo();
+};
+
+// 获取已有医院数据信息
+const pageHospitalInfo = async () => {
+  let result: any = await reqHospital(pageNum.value, pageSize.value);
+
+  if (result.code == 200) {
+    // 存储医院数据  
+    // 注意：reactive() 不能替换整个对象： let b = reactive({}); b = {}; 执行这段代码后对象失去原本的响应式
+    // ref 则直接能通过 a.value = {}, b.value = [] 实现并且不会丢失响应式
+    hasHospitalArr.value = result.data.content;
+    // 医院总数
+    total.value = result.data.totalElements;
+  }
+};
 </script>
 
 <style scoped lang="scss">
