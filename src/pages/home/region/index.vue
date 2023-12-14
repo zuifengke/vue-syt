@@ -12,7 +12,7 @@
         <li>萧山区</li>
         <li>萧山区</li>
         <li>萧山区</li>
-        <li v-for="item in 10" key="item">萧山区2</li>
+        <li v-for="item in 10" :key="item">萧山区2</li>
       </ul>
     </div>
   </div>
