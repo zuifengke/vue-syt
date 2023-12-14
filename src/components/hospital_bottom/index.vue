@@ -19,13 +19,13 @@
 .bottom {
   width: 100%;
   height: 50px;
+  background: #f0f2f5;
   display: flex;
   justify-content: center;
   .content {
     width: 1200px;
     // 与父级一般高
     height: 100%;
-    background-color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;

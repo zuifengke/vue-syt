@@ -55,7 +55,7 @@
       justify-content: center;
       align-items: center;
       font-size: 14px;
-      color: #100f0f;
+      color: #bbb;
       .help {
         margin-right: 10px;
       }
