@@ -12,6 +12,12 @@
 </template>
 
 <script setup lang="ts">
+import request from '@/utils/request';
+import { onMounted } from 'vue';
+
+onMounted(() => {
+  request.get('/hosp/hospital/1/10')
+})
 </script>
 
 <style lang="scss" scoped>

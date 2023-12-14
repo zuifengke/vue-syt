@@ -7,7 +7,16 @@ export default defineConfig({
   // 给src文件设置别名为 @
   resolve: {
     alias: {
-     "@": path.resolve(__dirname, 'src')
+      "@": path.resolve(__dirname, 'src')
     }
-   }
+  },
+  // 配置代理跨域
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://syt.atguigu.cn',
+        changeOrigin: true,
+      },
+    }
+  }
 })

@@ -12,10 +12,10 @@ import HospitalBottom from '@/components/hospital_bottom/index.vue';
 import router from '@/router/index.ts';
 // 引入 ElementPlus 组件  index.css一定不能少!!!
 import ElementPlus from 'element-plus';
-import 'element-plus/dist/index.css'
+import 'element-plus/dist/index.css';
 // 引入国际化配置
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-// 创建 应用实例 
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
+// 创建应用实例 
 const app = createApp(App)
 app.component('HospitalTop', HospitalTop);
 app.component('HospitalBottom', HospitalBottom);
