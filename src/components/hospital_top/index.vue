@@ -1,5 +1,5 @@
 <template>
-  <div class="top">
+  <div class="top" @click="goHome">
     <div class="content">
       <!-- 左侧 -->
       <div class="left">
@@ -15,7 +15,12 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { useRouter } from "vue-router";
+let router = useRouter();
+const goHome = () => {
+  router.push("/");
+};
 </script>
 
 <style lang="scss" scoped>

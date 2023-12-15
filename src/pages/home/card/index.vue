@@ -1,8 +1,8 @@
 <template>
-  <el-card class="box-card" shadow="hover">
+  <el-card class="box-card" shadow="hover" @click="goDetail">
     <div class="content">
       <div class="left">
-        <div class="hospital-name">{{hospitalInfo.hosname}}</div>
+        <div class="hospital-name">{{ hospitalInfo.hosname }}</div>
         <div class="tips">
           <div class="level">
             <svg
@@ -20,7 +20,7 @@
                 p-id="2417"
               ></path>
             </svg>
-            <span>{{hospitalInfo.param.hostypeString}}</span>
+            <span>{{ hospitalInfo.param.hostypeString }}</span>
           </div>
           <div class="time">
             <svg
@@ -44,7 +44,7 @@
                 p-id="5633"
               ></path>
             </svg>
-            <span>每天{{hospitalInfo.bookingRule?.releaseTime}}放号</span>
+            <span>每天{{ hospitalInfo.bookingRule?.releaseTime }}放号</span>
           </div>
         </div>
       </div>
@@ -56,9 +56,14 @@
 </template>
 
 <script setup lang="ts">
-
+import { useRouter } from "vue-router";
 // 接受父组件传递过来的props->即为已有的医院的数据
-let props = defineProps(['hospitalInfo']);
+let props = defineProps(["hospitalInfo"]);
+
+let router = useRouter();
+const goDetail = () => {
+  router.push("/hospital");
+};
 </script>
 
 <style lang="scss" scoped>
