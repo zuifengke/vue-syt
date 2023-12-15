@@ -3,7 +3,9 @@
     <div class="left">地区:</div>
     <div class="right">
       <ul class="region-list">
-        <li :class="{ active: regionFlag == '' }" @click="changeRegion('')">全部</li>
+        <li :class="{ active: regionFlag == '' }" @click="changeRegion('')">
+          全部
+        </li>
         <li
           v-for="region in regionArr"
           :key="region.value"
@@ -37,6 +39,8 @@ onMounted(() => {
 const changeRegion = (level: string) => {
   // 高亮响应式数据 存储地区的值
   regionFlag.value = level;
+  // 触发自定义事件,将地区信息返回给父组件
+  $emit("getRegion", level);
 };
 
 const getLevelInfo = async () => {
@@ -46,6 +50,8 @@ const getLevelInfo = async () => {
     regionArr.value = result.data;
   }
 };
+
+let $emit = defineEmits(["getRegion"]);
 </script>
 
 <style scoped lang="scss">

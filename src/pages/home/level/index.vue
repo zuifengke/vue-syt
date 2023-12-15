@@ -44,6 +44,8 @@ onMounted(() => {
 const changeLevel = (level: string) => {
   // 高亮响应式数据 存储医院等级的值
   activeFlag.value = level;
+  // 触发自定义事件,将医院等级信息返回给父组件 
+  $emit('getLevel',level);
 };
 
 const getLevelInfo = async () => {
@@ -53,6 +55,10 @@ const getLevelInfo = async () => {
     levelInfoArr.value = result.data;
   }
 };
+
+let $emit = defineEmits(['getLevel']);
+
+
 </script>
 
 <style scoped lang="scss">
