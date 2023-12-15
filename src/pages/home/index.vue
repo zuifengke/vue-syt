@@ -49,13 +49,14 @@ import Region from "./region/index.vue";
 import Card from "./card/index.vue";
 import { onMounted, ref } from "vue";
 import { reqHospital } from "@/api/home/index";
+import {Content,HospitalResponseData} from '@/api/home/type';
 
 // 分页器页码
 let pageNum = ref<number>(1);
 // 一页展示几条数据
 let pageSize = ref<number>(10);
 // 存储已有的医院的数据
-let hasHospitalArr = ref([]);
+let hasHospitalArr = ref<Content>([]);
 // 存储医院总个数
 let total = ref<number>(0);
 
@@ -78,7 +79,7 @@ const currentChange = () => {
 
 // 获取已有医院数据信息
 const pageHospitalInfo = async () => {
-  let result: any = await reqHospital(pageNum.value, pageSize.value);
+  let result:HospitalResponseData = await reqHospital(pageNum.value, pageSize.value);
 
   if (result.code == 200) {
     // 存储医院数据  

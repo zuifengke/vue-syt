@@ -3,22 +3,49 @@
     <div class="left">地区:</div>
     <div class="right">
       <ul class="region-list">
-        <li class="active">全部</li>
-        <li>萧山区</li>
-        <li>萧山区</li>
-        <li>萧山区</li>
-        <li>萧山区</li>
-        <li>萧山区</li>
-        <li>萧山区</li>
-        <li>萧山区</li>
-        <li>萧山区</li>
-        <li v-for="item in 10" :key="item">萧山区2</li>
+        <li :class="{ active: regionFlag == '' }" @click="changeRegion('')">全部</li>
+        <li
+          v-for="region in regionArr"
+          :key="region.value"
+          :class="{ active: regionFlag == region.value }"
+          @click="changeRegion(region.value)"
+        >
+          {{ region.name }}
+        </li>
       </ul>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { reqHospitalLevelAndRegion } from "@/api/home/index";
+import { onMounted, ref } from "vue";
+import {
+  HospitalLevelAndRegionResponseData,
+  HospitalLevelAndRegionArr,
+} from "@/api/home/type";
+
+// 定义一个数组,存储地区等级信息
+let regionArr = ref<HospitalLevelAndRegionArr>([]);
+// 控制地区等级高亮响应式数据
+let regionFlag = ref<string>("");
+
+onMounted(() => {
+  getLevelInfo();
+});
+
+const changeRegion = (level: string) => {
+  // 高亮响应式数据 存储地区的值
+  regionFlag.value = level;
+};
+
+const getLevelInfo = async () => {
+  let result: HospitalLevelAndRegionResponseData =
+    await reqHospitalLevelAndRegion("Beijin");
+  if (result.code == 200) {
+    regionArr.value = result.data;
+  }
+};
 </script>
 
 <style scoped lang="scss">
