@@ -8,7 +8,6 @@
       </div>
       <!-- Menu菜单 -->
       <el-menu :default-active="route.path" class="el-menu-vertical-demo">
-
         <el-menu-item
           index="/hospital/register"
           @click="changeActive('/hospital/register')"
@@ -48,7 +47,6 @@
           <el-icon><Search /></el-icon>
           <span>查询/取消</span>
         </el-menu-item>
-
       </el-menu>
     </div>
     <!-- 右侧内容展示区 -->
@@ -72,14 +70,30 @@ import {
 } from "@element-plus/icons-vue";
 
 import { useRouter, useRoute } from "vue-router";
+import useDetailStore from "@/store/modules/hospitalDetail";
+import { onMounted } from "vue";
+
+// 获取对象仓库
+let detailStore = useDetailStore();
 // 获取路由器
 let router = useRouter();
 // 获取当前路由的信息
 let route = useRoute();
-
+// 跳转到其他路径
 const changeActive = (path: string) => {
-  router.push(path);
+  // 切换二级路径 后面也加上query信息 页面刷新时能重新请求存储数据
+  router.push({ path, query: { hoscode: route.query.hoscode } });
 };
+
+// 组件挂载完成 通过pinia仓库发送请求获取医院的详情信息,并存储到仓库中
+onMounted(() => {
+  // 获取医院详情信息
+  // 指定(断言) route.query.hoscode 为string 类型
+  detailStore.getHospital(route.query.hoscode as string);
+
+  // 获取医院科室的数据 （测试数据 仅部分数据有科室信息）
+  detailStore.getDeparment(route.query.hoscode as string);
+});
 </script>
 
 <style scoped lang="scss">

@@ -44,8 +44,11 @@ const fetchData = async (keyword: string, cb: any) => {
 };
 
 // @select="goDetail" 点击选中建议项时触发
-const goDetail = () => {
-  router.push("/hospital/register");
+const goDetail = (selectedHospital: any) => {
+  router.push({
+    path: "/hospital/register",
+    query: { hoscode: selectedHospital.hoscode },
+  });
 };
 </script>
 <!-- 深度选择器： >>>  /deep/  ::v-deep -->

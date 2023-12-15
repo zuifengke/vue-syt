@@ -62,7 +62,7 @@ let props = defineProps(["hospitalInfo"]);
 
 let router = useRouter();
 const goDetail = () => {
-  router.push("/hospital/register");
+  router.push({ path: '/hospital/register', query: { hoscode: props.hospitalInfo.hoscode } });
 };
 </script>
 

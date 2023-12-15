@@ -15,16 +15,20 @@ import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
 // 引入国际化配置
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
+// 引入 pinia仓库
+import pinia from '@/store/index';
 // 创建应用实例 
 const app = createApp(App)
 app.component('HospitalTop', HospitalTop);
 app.component('HospitalBottom', HospitalBottom);
-
+// 安装pinia
+app.use(pinia);
 // 安装vue-router
 app.use(router);
 //安装element-plus插件
 app.use(ElementPlus, {
     locale: zhCn,
 })
+
 // 将应用实例挂载到挂载点上
 app.mount('#app')
