@@ -49,12 +49,67 @@ export default createRouter({
                         title: '查询'
                     }
                 },
+                {
+                    path: 'register_step1',
+                    component: () => import('@/pages/hospital/register/register_step1.vue'),
+                    meta:{
+                        title:'预约第一步'
+                    }
+                },
+                {
+                    path: 'register_step2',
+                    component: () => import('@/pages/hospital/register/register_step2.vue'),
+                    meta:{
+                        title:'预约第二步'
+                    }
+                }
             ]
         },
         {
             path: '/',
             redirect: '/home'
         },
+        {
+            path: '/user',
+            component: () => import('@/pages/user/index.vue'),
+            children: [
+                {
+                    path: 'certification',
+                    component: () => import('@/pages/user/certification/index.vue'),
+                    meta:{
+                        title:'实名认证'
+                    }
+                },
+                {
+                    path: 'order',
+                    component: () => import('@/pages/user/order/index.vue'),
+                    meta:{
+                        title:'挂号订单'
+                    }
+                },
+                {
+                    path: 'patient',
+                    component: () => import('@/pages/user/patient/index.vue'),
+                    meta:{
+                        title:'就诊人管理'
+                    }
+                },
+                {
+                    path: 'profile',
+                    component: () => import('@/pages/user/profile/index.vue'),
+                    meta:{
+                        title:'账号信息'
+                    }
+                },
+                {
+                    path: 'feedback',
+                    component: () => import('@/pages/user/feedback/index.vue'),
+                    meta:{
+                        title:'信息反馈'
+                    }
+                }
+            ]
+        }
     ],
     // 滚动行为：控制滚动条的位置
     scrollBehavior() {

@@ -96,7 +96,11 @@
           <h1 class="cur">{{ deparment.depname }}</h1>
           <!-- 每一个大的科室下小科室 -->
           <ul>
-            <li v-for="item in deparment.children" :key="item.depcode">
+            <li
+              v-for="item in deparment.children"
+              :key="item.depcode"
+              @click="showLogin(item)"
+            >
               {{ item.depname }}
             </li>
           </ul>
@@ -107,9 +111,18 @@
 </template>
 
 <script setup lang="ts">
-import useDetailStore from "@/store/modules/hospitalDetail";
 import { ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import useDetailStore from "@/store/modules/hospitalDetail";
+import useUserStore from "@/store/modules/user";
+
+//获取路由器
+let $router = useRouter();
+//获取路由对象
+let $route = useRoute();
+
 let hospDetailStore = useDetailStore();
+let userStore = useUserStore();
 // 控制科室高亮的响应式数据
 let currentIndex = ref<number>(0);
 // 左侧大的科室点击的事件
@@ -122,6 +135,15 @@ const changeIndex = (index: number) => {
   allH1[currentIndex.value].scrollIntoView({
     behavior: "smooth", // 过渡动画效果
     block: "start", // 滚动到位置 默认起始位置
+  });
+};
+
+const showLogin = (item: any) => {
+  // userStore.visiable = true;
+  // 点击科室跳转到对应的科室进行挂号
+  $router.push({
+    path: "/hospital/register_step1",
+    query: { hoscode: $route.query.hoscode, depcode: item.depcode },
   });
 };
 </script>
