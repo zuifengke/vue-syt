@@ -4,3 +4,4 @@ import { createPinia } from 'pinia';
 // 注意此处为:createPinia() 而非 createPinia
 export default createPinia();
 //随便加一点东西
+//随便加一点东西2
